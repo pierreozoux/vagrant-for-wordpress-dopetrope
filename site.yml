@@ -1,0 +1,17 @@
+---
+- name: "WordPress Server: Install LEMP Stack with PHP 5.5 and MariaDB MySQL"
+  hosts: web
+  remote_user: root
+  # sudo: yes
+
+  roles:
+    - common
+    - mariadb
+    - php-55
+    - nginx
+    - memcached
+    - composer
+    - { role: dev-tools, when: "'development' not in group_names" }
+    - wp-cli
+    - { role: capistrano-setup, when: "'development' not in group_names" }
+    - wordpress-sites
